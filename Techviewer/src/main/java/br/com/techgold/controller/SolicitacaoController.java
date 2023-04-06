@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SolicitacaoController {
 
-	@GetMapping("/home")
-	public String solicitacaoHome() {
+	@GetMapping("/dashboard")
+	public String dashboard() {
 		
-		return "templates/solicitacao.html";
+		return "templates/dashboard.html";
 	}
 	
 }

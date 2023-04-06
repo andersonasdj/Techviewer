@@ -1,6 +1,7 @@
 package br.com.techgold.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,7 +36,7 @@ public class Cliente extends Usuario {
 		this.redFlag = redFlag;
 	}
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private FuncionarioCliente funcionarioCliente;
 	
 	public double getLatitude() {
