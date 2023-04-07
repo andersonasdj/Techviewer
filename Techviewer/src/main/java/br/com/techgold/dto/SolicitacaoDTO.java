@@ -5,6 +5,7 @@ import br.com.techgold.model.Solicitacao;
 public class SolicitacaoDTO {
 
 	private Long id;
+	private String dataAbertura;
 	private String cliente;
 	private String vip;
 	private String funcionario;
@@ -17,6 +18,7 @@ public class SolicitacaoDTO {
 
 	public SolicitacaoDTO(Solicitacao solicitacao) {
 		this.id = solicitacao.getId();
+		this.dataAbertura = solicitacao.getDataAbertura().getTime().toString();
 		this.cliente = solicitacao.getCliente().getNome();
 		if (solicitacao.getFuncionario() != null) {
 			this.funcionario = solicitacao.getFuncionario().getNome();
@@ -24,7 +26,9 @@ public class SolicitacaoDTO {
 			this.funcionario = "Não Atribuido";
 		}
 		if (solicitacao.getCliente().isVip()) {
-			this.vip = "Cliente VIP";
+			this.vip = "VIP";
+		}else {
+			this.vip = " ";
 		}
 
 		this.solicitante = solicitacao.getSolicitante();
@@ -37,6 +41,14 @@ public class SolicitacaoDTO {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public String getDataAbertura() {
+		return dataAbertura;
+	}
+	
+	public void setDataAbertura(String dataAbertura) {
+		this.dataAbertura = dataAbertura;
 	}
 
 	public void setId(Long id) {

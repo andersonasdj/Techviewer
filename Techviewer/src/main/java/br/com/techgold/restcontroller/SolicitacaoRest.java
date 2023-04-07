@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.techgold.dto.ResumoSolicitacoesDTO;
 import br.com.techgold.dto.SolicitacaoDTO;
 import br.com.techgold.model.Funcionario;
 import br.com.techgold.model.Solicitacao;
@@ -30,9 +31,48 @@ public class SolicitacaoRest {
 		
 		for (Solicitacao solicitacao : solList) {
 			SolicitacaoDTO dto = new SolicitacaoDTO(solicitacao);
-			listaDTO.add(dto);
+			
+			if(dto.getStatus().equals("Aberto") && dto.getPrioridade().equals("Alta") || dto.getPrioridade().equals("Media")) {
+				listaDTO.add(dto);
+			}
 		}
 		return listaDTO;
+	}
+	
+	@GetMapping("solicitacoesresumo")
+	public ResumoSolicitacoesDTO resumoolicitacoes(){
+		List<Solicitacao> solList = new ArrayList<Solicitacao>();
+		solList = repository.listarNaoFinalizados();
+		ResumoSolicitacoesDTO resumo = new ResumoSolicitacoesDTO();
+		int abertos=0, agendado=0, andamento=0, aguardando=0, vip=0, altas=0;
+		for (Solicitacao solicitacao : solList) {
+			SolicitacaoDTO dto = new SolicitacaoDTO(solicitacao);
+			
+			if(dto.getStatus().equals("Aberto")){
+				abertos++;
+				resumo.setAbertas(abertos);
+			}else if(dto.getStatus().equals("Aguardando")) {
+				aguardando++;
+				resumo.setAguardando(aguardando);
+			}else if(dto.getStatus().equals("Em andamento")) {
+				andamento++;
+				resumo.setEmAndamento(andamento);
+			}else if(dto.getStatus().equals("Agendado")) {
+				agendado++;
+				resumo.setAgendadas(agendado);
+			}
+			if(dto.getVip().equals("VIP")) {
+				vip++;
+				resumo.setVips(vip);
+			}
+			if(dto.getPrioridade().equals("Alta")) {
+				altas++;
+				resumo.setAltas(altas);
+			}
+			
+		}
+		resumo.setTotal(solList.size());
+		return resumo;
 	}
 	
 	@GetMapping("funcionariosAtivos")
