@@ -16,6 +16,8 @@ import br.com.techgold.repository.SolicitacaoRepository;
 
 @RestController
 public class SolicitacaoRest {
+	
+	private static Solicitacao atualizada;
 
 	@Autowired
 	SolicitacaoRepository repository;
@@ -74,6 +76,35 @@ public class SolicitacaoRest {
 		resumo.setTotal(solList.size());
 		return resumo;
 	}
+	
+	@GetMapping("houveupdate")
+	public boolean ultimoUpdate() {
+		Solicitacao solicitacaoBuscada = repository.listarUltimoUpdate();
+		if( solicitacaoBuscada.equals(atualizada)) {
+			return false;
+			
+		}else {
+			atualizada = solicitacaoBuscada;
+			return true;
+		}
+	}
+	
+	/*@GetMapping("ultimoupdate")
+	public SolicitacaoDTO ultimoUpdate() {
+		Solicitacao solicitacaoBuscada = repository.listarUltimoUpdate();
+		
+		if( solicitacaoBuscada.equals(atualizada)) {
+			System.out.println("São iguais");
+		}else {
+			System.out.println("são diferentes");
+			atualizada = solicitacaoBuscada;
+		}
+		
+		SolicitacaoDTO solicitacaoDTO = new SolicitacaoDTO(atualizada);
+		
+		return solicitacaoDTO;
+	}*/
+	
 	
 	@GetMapping("funcionariosAtivos")
 	public List<Funcionario> listarFuncionariosAtivos(){

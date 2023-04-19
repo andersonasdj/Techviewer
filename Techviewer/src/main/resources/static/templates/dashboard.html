@@ -48,13 +48,12 @@
 		crossorigin="anonymous"></script>
 		
 	<script>
-		
 		$(document).ready(function(){
 			update();
 			getStatus();
-			
-		var timeDelay = 10000;
-		//setInterval(update, timeDelay );
+			var timeDelay = 5000;
+			setInterval(verificaUpdate, timeDelay );
+		});
 		
 		function update(){
 			$('#tbodyId').empty();
@@ -87,10 +86,8 @@
 			});
 		}
 		
-		});
-		
 		function getStatus(){
-			
+			$('#resumo').empty();
 			$.ajax({
 				type: "GET",
 				contentType: "application/json",
@@ -108,6 +105,23 @@
 				},
 				error: function (jqXHR, status, error) {
 					alert("Caminho inválido!");
+				}
+			});
+			
+		}
+		
+		function verificaUpdate(){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "/techviewer/houveupdate",
+				success: function (data) {
+					if(data){
+						update();
+						getStatus();
+					}
+				},
+				error: function (jqXHR, status, error) {
 				}
 			});
 			
