@@ -9,6 +9,7 @@ public class ResumoSolicitacoesDTO {
 	private int aguardando;
 	private int vips;
 	private int altas;
+	private int criticos;
 
 	public int getTotal() {
 		return total;
@@ -64,5 +65,13 @@ public class ResumoSolicitacoesDTO {
 
 	public void setAltas(int altas) {
 		this.altas = altas;
+	}
+	
+	public int getCriticos() {
+		return criticos;
+	}
+	
+	public void setCriticos(int criticos) {
+		this.criticos = criticos;
 	}
 }

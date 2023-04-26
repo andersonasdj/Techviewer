@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="">
 		<p><h2 style="color: rgb(26, 95, 180); "> Dashboard</h2></p>
 		<p><span id="resumo"></span></p>
 		
@@ -51,7 +51,7 @@
 		$(document).ready(function(){
 			update();
 			getStatus();
-			var timeDelay = 5000;
+			var timeDelay = 8000;
 			setInterval(verificaUpdate, timeDelay );
 		});
 		
@@ -99,7 +99,7 @@
 					' - Aguardando: <b>' + data.aguardando + '</b> ' +
 					' -- Total: <b><i><span style="font-size: 20px;">' + data.total + '</span></i></b> ' +
 					'   <p style="font-size: 18px; text-align: right;">   Solicitações VIP: <b>' + data.vips + '</b> ' +
-					'   - Prioridade alta: <b>' + data.altas + '</b></p>';
+					'   - Prioridade alta: <b>' + data.altas + '</b> - Prioridade Crítica:<b>' + data.criticos + '</b></p>';
 				
 				$('#resumo').append(resumo);
 				},
